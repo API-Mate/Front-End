@@ -41,7 +41,7 @@
             
             <div class="card-body px-lg-5 py-lg-5">
               <div class="text-center text-muted mb-4">
-                <small>Or sign up with credentials</small>
+                <small>sign up with credentials</small>
               </div>
               <form
                 role="form"
@@ -52,12 +52,24 @@
                   alternative
                   class="mb-3"
                   prepend-icon="ni ni-hat-3"
-                  placeholder="Name"
-                  name="Name"
-                  v-model="form.data.attributes.name"
+                  placeholder="First Name"
+                  name="fName"
+                  v-model="form.data.attributes.fname"
                 >
                 </base-input>
-                <validation-error :errors="apiValidationErrors.name" />
+                <validation-error :errors="apiValidationErrors.fname" />
+
+                
+                <base-input
+                  alternative
+                  class="mb-3"
+                  prepend-icon="ni ni-hat-3"
+                  placeholder="Last Name"
+                  name="lName"
+                  v-model="form.data.attributes.lname"
+                >
+                </base-input>
+                <validation-error :errors="apiValidationErrors.lname" />
 
                 <base-input
                   alternative
@@ -188,7 +200,8 @@ import BaseCheckbox from '~/components/argon-core/Inputs/BaseCheckbox.vue'
         data: {
           type: "token",
           attributes: {
-            name: "",
+            fname: "",
+            lname: "",
             email: "",
             password: "",
             password_confirmation: "",
@@ -216,9 +229,9 @@ import BaseCheckbox from '~/components/argon-core/Inputs/BaseCheckbox.vue'
         await this.$store.dispatch("register/create", this.form.data);
 
         //log in the user after successful register
-        await this.$auth.loginWith("local", {
-          data: this.form,
-        });
+        // await this.$auth.loginWith("local", {
+        //   data: this.form,
+        // });
         this.$router.push("/dashboard");
       } catch (error) {
         this.setApiValidation(error.response.data.errors);

@@ -81,7 +81,9 @@
             >
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
-              <span class="mb-0 text-sm font-weight-bold">Ali Tabesh</span>
+              <span class="mb-0 text-sm font-weight-bold">{{
+                $auth.user.fname
+              }}</span>
               <!-- <span class="mb-0 text-sm font-weight-bold">{{
                 "$auth.user.name"
               }}</span> -->

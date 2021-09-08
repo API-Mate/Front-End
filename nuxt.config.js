@@ -195,9 +195,9 @@ module.exports = {
         _scheme: "~/util/authCustomStrategy.js",
         endpoints: {
           login: {
-            url: "login",
+            url: "authentication-function",
             method: "post",
-            propertyName: "access_token"
+            propertyName: "token"
           },
           logout: { url: "/logout", method: "post" },
           user: {
@@ -249,17 +249,17 @@ module.exports = {
     baseURL: process.env.API_BASE_URL,
     headers: {
       common: {
-        Accept: "application/vnd.api+json",
-        "content-type": "application/vnd.api+json"
+        Accept: "application/json",
+        //"content-type": "application/json"
       },
       post: {
-        "content-type": "application/vnd.api+json"
+        "content-type": "application/json"
       },
       patch: {
-        "content-type": "application/vnd.api+json"
+        "content-type": "application/json"
       },
       delete: {
-        "content-type": "application/vnd.api+json"
+        "content-type": "application/json"
       }
     }
   },

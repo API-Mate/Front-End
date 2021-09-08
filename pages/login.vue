@@ -15,7 +15,7 @@
           </div>
           <div class="text-white">
             <h3 class="text-white"><strong>You can log in with:</strong></h3>
-            <div>Username <b>admin@jsonapi.com</b> Password <b>secret</b></div>
+            <div>Username <b>hi@alitabesh.ir</b> Password <b>test01</b></div>
           </div>
         </div>
       </div>
@@ -114,8 +114,8 @@ export default {
         data: {
           type: "token",
           attributes: {
-            email: "admin@jsonapi.com",
-            password: "secret",
+            email: "hi@alitabesh.ir",
+            password: "test01",
           },
         },
       },
