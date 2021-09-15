@@ -36,11 +36,11 @@
         </div>
 
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <nuxt-link to="/dashboard" class="nav-link">
               <span class="nav-link-inner--text">Dashboard</span>
             </nuxt-link>
-          </li>
+          </li> -->
           <li class="nav-item">
             <nuxt-link to="/login" class="nav-link">
               <span class="nav-link-inner--text">Login</span>

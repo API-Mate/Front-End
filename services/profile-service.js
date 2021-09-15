@@ -4,11 +4,11 @@ const url = process.env.apiUrl;
 const jsona = new Jsona();
 
 function get(params, axios) {
-  return axios.get(`${url}/me`)
+  return axios.get(`${url}data-function`)
     .then(response => {
       return {
-        list: jsona.deserialize(response.data),
-        meta: response.data.meta
+        list: response.data,
+        meta: null
       };
     });
 }

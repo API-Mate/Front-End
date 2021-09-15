@@ -82,10 +82,10 @@
             </span>
             <div class="media-body ml-2 d-none d-lg-block">
               <span class="mb-0 text-sm font-weight-bold">{{
-                $auth.user.fname
+                $auth.user.fname + ' ' + $auth.user.lname
               }}</span>
               <!-- <span class="mb-0 text-sm font-weight-bold">{{
-                "$auth.user.name"
+                $auth.user.fname + ' ' + $auth.user.lname
               }}</span> -->
             </div>
           </div>

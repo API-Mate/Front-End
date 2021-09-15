@@ -173,12 +173,12 @@ import PageVisitsTable from "@/components/pages/dashboard/PageVisitsTable.vue";
 export default {
   middleware({ store, redirect }) {
     // If the user is not authenticated
-    // if (!store.$auth.loggedIn) {
-    //   return redirect("/login");
-    // }
-    if (false) {
+    if (!store.$auth.loggedIn) {
       return redirect("/login");
     }
+    // if (false) {
+    //   return redirect("/login");
+    // }
   },
   layout: "DashboardLayout",
   components: {

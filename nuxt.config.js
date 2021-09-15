@@ -162,9 +162,9 @@ module.exports = {
     "~assets/css/style.css"
   ],
 
-  // router: {
-  //   middleware: ['auth']
-  // },
+  router: {
+    middleware: ['auth']
+  },
   /*
    ** Plugins to load before mounting the App
    */
@@ -199,10 +199,10 @@ module.exports = {
             method: "post",
             propertyName: "token"
           },
-          logout: { url: "/logout", method: "post" },
+          //logout: { url: "/logout", method: "post" },
           user: {
-            url: "/me",
-            method: "get",
+            url: "/data-function",
+            method: "post",
             propertyName: false
           }
         }

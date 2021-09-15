@@ -6,12 +6,8 @@
         <notifications></notifications>
         <div class="header-body text-center mb-7">
           <div class="text-center" style="margin-bottom: 5px">
-            <h1 class="text-white">
-              Log in to API Mate
-            </h1>
-            <p class="text-lead text-white">
-              Log in to see how you can go 
-            </p>
+            <h1 class="text-white">Log in to API Mate</h1>
+            <!-- <p class="text-lead text-white">Log in to see how you can go</p> -->
           </div>
           <div class="text-white">
             <h3 class="text-white"><strong>You can log in with:</strong></h3>
@@ -40,7 +36,6 @@
       <div class="row justify-content-center">
         <div class="col-lg-5 col-md-7">
           <div class="card bg-secondary border-0 mb-0">
-            
             <div class="card-body px-lg-5 py-lg-5">
               <div class="text-center text-muted mb-4">
                 <small>sign in with credentials</small>
@@ -53,7 +48,7 @@
                   name="Email"
                   prepend-icon="ni ni-email-83"
                   placeholder="Email"
-                  v-model="form.data.attributes.email"
+                  v-model="form.data.email"
                 >
                 </base-input>
                 <validation-error :errors="apiValidationErrors.email" />
@@ -65,7 +60,7 @@
                   prepend-icon="ni ni-lock-circle-open"
                   type="password"
                   placeholder="Password"
-                  v-model="form.data.attributes.password"
+                  v-model="form.data.password"
                 >
                 </base-input>
                 <validation-error :errors="apiValidationErrors.password" />
@@ -111,12 +106,10 @@ export default {
   data() {
     return {
       form: {
+        action: "login",
         data: {
-          type: "token",
-          attributes: {
-            email: "hi@alitabesh.ir",
-            password: "test01",
-          },
+          email: "hi@alitabesh.ir",
+          password: "test01",
         },
       },
     };
@@ -124,21 +117,22 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        console.log("1")
-        // await this.$auth.loginWith("local", {
-        //   data: this.form,
-        // });
-                console.log("3")
-
+        console.log("1");
+        var user = await this.$auth.loginWith("local", {
+          data: this.form,
+        });
+        console.log(user);
+        console.log(this.$auth.loggedIn);
         this.$axios.defaults.headers.common.Authorization = `${this.$auth.getToken(
           "local"
         )}`;
-                console.log("4")
+        this.$auth.setUser(user.data);
+        console.log(this.$auth.loggedIn);
 
         this.$router.push("/dashboard");
-        console.log("2")
+        console.log("2");
       } catch (error) {
-        console.log(error)
+        console.log(error);
         await this.$notify({
           type: "danger",
           message: "Invalid credentials!",
