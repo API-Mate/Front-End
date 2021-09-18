@@ -26,6 +26,9 @@ module.exports = {
     isDemo: process.env.IS_DEMO,
     apiKey: process.env.API_KEY,
   },
+  server: {
+    port: 4000 // default: 3000
+  },
   mode: "spa",
   router: {
     base: "/",

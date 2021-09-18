@@ -11,14 +11,25 @@ export const mutations = {
 };
 
 export const actions = {
-  me({commit, dispatch}, params) {
+  async getConnectors() {
+    const data = {
+      "table": "API-Connectors",
+      "query": "findAll",
+      "record": null
+    };
+    return await this.$axios.post("data-function", data).then(response => {
+      return response.data;
+    });
+  },
+
+  me({ commit, dispatch }, params) {
     return service.get(params, this.$axios)
       .then((profile) => {
         commit('SET_RESOURCE', profile.list);
       });
   },
 
-  update({commit, dispatch}, params) {
+  update({ commit, dispatch }, params) {
     return service.update(params, this.$axios)
       .then((profile) => {
         commit('SET_RESOURCE', profile);
