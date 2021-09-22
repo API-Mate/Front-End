@@ -9,8 +9,8 @@
           </nav> -->
         </div>
         <div class="col-lg-6 col-5 text-right">
-          <base-button size="sm" type="neutral">New Request</base-button>
-          <base-button size="sm" type="neutral">List of Requests</base-button>
+          <base-button @click="$router.push('/Requests/Add')" size="sm" type="neutral">New Request</base-button>
+          <base-button @click="$router.push('/Requests')" size="sm" type="neutral">List of Requests</base-button>
         </div>
       </div>
 
@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col-xl-3 col-md-6">
           <stats-card
-            title="Total traffic"
+            title="Total requests"
             type="gradient-red"
             sub-title="350,897"
             icon="ni ni-active-40"
@@ -33,7 +33,7 @@
         </div>
         <div class="col-xl-3 col-md-6">
           <stats-card
-            title="Total traffic"
+            title="Total requests"
             type="gradient-orange"
             sub-title="2,356"
             icon="ni ni-chart-pie-35"
@@ -48,7 +48,7 @@
         </div>
         <div class="col-xl-3 col-md-6">
           <stats-card
-            title="Sales"
+            title="Scheduled"
             type="gradient-green"
             sub-title="924"
             icon="ni ni-money-coins"
@@ -87,7 +87,7 @@
             <div slot="header" class="row align-items-center">
               <div class="col">
                 <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
-                <h5 class="h3 text-white mb-0">Sales value</h5>
+                <h5 class="h3 text-white mb-0">Requests</h5>
               </div>
               <div class="col">
                 <ul class="nav nav-pills justify-content-end">
@@ -131,7 +131,7 @@
             <div slot="header" class="row align-items-center">
               <div class="col">
                 <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                <h5 class="h3 mb-0">Total orders</h5>
+                <h5 class="h3 mb-0">Total requests</h5>
               </div>
             </div>
 
@@ -147,14 +147,14 @@
       <!-- End charts-->
 
       <!--Tables-->
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-xl-8">
           <page-visits-table></page-visits-table>
         </div>
         <div class="col-xl-4">
           <social-traffic-table></social-traffic-table>
         </div>
-      </div>
+      </div> -->
       <!--End tables-->
     </div>
   </div>
@@ -174,6 +174,7 @@ export default {
   middleware({ store, redirect }) {
     // If the user is not authenticated
     if (!store.$auth.loggedIn) {
+      console.log("Not logged in");
       return redirect("/login");
     }
     // if (false) {

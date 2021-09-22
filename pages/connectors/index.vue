@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid mt-5">
-    <div class="alert alert-danger">
+    <!-- <div class="alert alert-danger">
       <strong
         >Add, Edit, Delete features are not functional. This is a PRO feature!
         Click
@@ -12,7 +12,7 @@
         >
         to see the PRO product.</strong
       >
-    </div>
+    </div> -->
     <div>
       <card
         class="no-border-card"
@@ -22,21 +22,27 @@
         <template slot="header">
           <div class="row">
             <div class="col-6">
-              <h3 class="mb-0">Users List</h3>
+              <h3 class="mb-0">List of Account</h3>
             </div>
             <div class="col-6 text-right">
-              <base-button type="primary" icon size="sm" @click="onProFeature">
+              <base-button type="primary" icon size="sm" @click="addAccount">
                 <span class="btn-inner--icon"
                   ><i class="fas fa-user-edit"></i
                 ></span>
-                <span class="btn-inner--text">Add User</span>
+                <span class="btn-inner--text">Add Account</span>
               </base-button>
             </div>
           </div>
         </template>
         <div>
           <div
-            class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap mb-4"
+            class="
+              col-12
+              d-flex
+              justify-content-center justify-content-sm-between
+              flex-wrap
+              mb-4
+            "
           >
             <el-select
               class="select-primary pagination-select"
@@ -51,37 +57,82 @@
                 :value="item"
               />
             </el-select>
+            <base-button type="primary" icon size="sm" @click="addAccount">
+              <span class="btn-inner--icon"
+                ><i class="fas fa-calendar-plus"></i
+              ></span>
+              <span class="btn-inner--text">New Request to Selected Accounts</span>
+            </base-button>
           </div>
           <el-table
             class="table-responsive align-items-center table-flush"
             header-row-class-name="thead-light"
-            :data="users"
+            :data="accounts"
             @sort-change="sortChange"
           >
+            <el-table-column type="selection" width="55" />
             <el-table-column
-              label="Name"
+              label="account"
+              min-width="110px"
+              prop="account"
+              sortable="custom"
+            />
+
+            <el-table-column
+              prop="connector_id"
+              label="connector"
               min-width="310px"
-              prop="name"
-              sortable="custom"
-            />
+              filter-placement="bottom-end"
+            >
+              <template slot-scope="scope">
+                <div v-if="getConnectorById(scope.row.connector_id)">
+                  <div>
+                    <img
+                      :src="
+                        '/img/connectors/' +
+                        getConnectorById(scope.row.connector_id).imagePath
+                      "
+                      style="max-height: 30px; max-width: 30px"
+                      alt=""
+                    />
+                    <!-- <i class="fab fa-twitter"></i> -->
+                    <span
+                      >{{
+                        getConnectorById(scope.row.connector_id).name
+                      }}
+                      Connector</span
+                    >
+                  </div>
+                  <p>
+                    {{ getConnectorById(scope.row.connector_id).description }}
+                  </p>
+                </div>
+              </template>
+            </el-table-column>
+
             <el-table-column
-              label="Email"
+              prop="credential"
+              label="credential"
               min-width="310px"
-              prop="email"
-              sortable="custom"
-            />
-            <el-table-column
-              label="Created At"
-              prop="created_at"
-              min-width="140px"
-              sortable="custom"
-            />
+              filter-placement="bottom-end"
+            >
+              <template slot-scope="scope">
+                <p>{{ scope.row.credential }}</p>
+              </template>
+            </el-table-column>
             <el-table-column min-width="180px" align="center">
               <div class="table-actions">
+                <base-button type="primary" icon size="sm" @click="addAccount">
+                  <span class="btn-inner--text">New Request</span>
+
+                  <span
+                    ><i class="fa fa-paper-plane"></i
+                  ></span>
+                </base-button>
                 <el-tooltip content="Edit" placement="top">
                   <a
                     type="text"
-                    @click="onProFeature"
+                    @click="addAccount"
                     class="table-action"
                     data-toggle="tooltip"
                     style="cursor: pointer"
@@ -93,7 +144,7 @@
                 <el-tooltip content="Delete" placement="top">
                   <a
                     type="text"
-                    @click="onProFeature"
+                    @click="addAccount"
                     class="table-action table-action-delete"
                     data-toggle="tooltip"
                     style="cursor: pointer"
@@ -107,7 +158,12 @@
         </div>
         <div
           slot="footer"
-          class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
+          class="
+            col-12
+            d-flex
+            justify-content-center justify-content-sm-between
+            flex-wrap
+          "
         >
           <div class="">
             <p class="card-category">
@@ -162,7 +218,8 @@ export default {
   data() {
     return {
       selectedRows: [],
-      users: [],
+      accounts: [],
+      connectors: [],
       sort: "created_at",
 
       pagination: {
@@ -189,24 +246,27 @@ export default {
   },
 
   created() {
+    this.getConnectors();
     this.getList();
   },
 
   methods: {
-    getList() {
-      this.users = [
-        {
-          name: "Admin",
-          email: "admin@jsonapi.com",
-          created_at: "2020-01-01",
-        },
-      ];
+    async getConnectors() {
+      this.connectors = await this.$store.dispatch("profile/getConnectors");
     },
-    onProFeature() {
-      this.$notify({
-        type: "danger",
-        message: "This is a PRO feature.",
-      });
+    getConnectorById(id) {
+      if (this.connectors.length > 0)
+        return this.connectors.find((x) => x._id === id);
+    },
+    getList() {
+      this.accounts = this.$auth.user.accounts;
+    },
+    addAccount() {
+      this.$router.push("/Connectors/Add");
+      // this.$notify({
+      //   type: "danger",
+      //   message: "This is a PRO feature.",
+      // });
     },
     sortChange({ prop, order }) {
       if (order === "descending") {

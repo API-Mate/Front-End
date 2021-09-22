@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid mt-5">
-    <div class="alert alert-danger">
+    <!-- <div class="alert alert-danger">
       <strong
         >Add, Edit, Delete features are not functional. This is a PRO feature!
         Click
@@ -12,7 +12,7 @@
         >
         to see the PRO product.</strong
       >
-    </div>
+    </div> -->
     <div>
       <card
         class="no-border-card"
@@ -22,21 +22,27 @@
         <template slot="header">
           <div class="row">
             <div class="col-6">
-              <h3 class="mb-0">Users List</h3>
+              <h3 class="mb-0">List of Requests</h3>
             </div>
             <div class="col-6 text-right">
-              <base-button type="primary" icon size="sm" @click="onProFeature">
+              <base-button type="primary" icon size="sm" @click="newRequest">
                 <span class="btn-inner--icon"
                   ><i class="fas fa-user-edit"></i
                 ></span>
-                <span class="btn-inner--text">Add User</span>
+                <span class="btn-inner--text">New Request</span>
               </base-button>
             </div>
           </div>
         </template>
         <div>
           <div
-            class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap mb-4"
+            class="
+              col-12
+              d-flex
+              justify-content-center justify-content-sm-between
+              flex-wrap
+              mb-4
+            "
           >
             <el-select
               class="select-primary pagination-select"
@@ -55,7 +61,7 @@
           <el-table
             class="table-responsive align-items-center table-flush"
             header-row-class-name="thead-light"
-            :data="users"
+            :data="requests"
             @sort-change="sortChange"
           >
             <el-table-column
@@ -81,7 +87,7 @@
                 <el-tooltip content="Edit" placement="top">
                   <a
                     type="text"
-                    @click="onProFeature"
+                    @click="newRequest"
                     class="table-action"
                     data-toggle="tooltip"
                     style="cursor: pointer"
@@ -93,7 +99,7 @@
                 <el-tooltip content="Delete" placement="top">
                   <a
                     type="text"
-                    @click="onProFeature"
+                    @click="newRequest"
                     class="table-action table-action-delete"
                     data-toggle="tooltip"
                     style="cursor: pointer"
@@ -107,7 +113,12 @@
         </div>
         <div
           slot="footer"
-          class="col-12 d-flex justify-content-center justify-content-sm-between flex-wrap"
+          class="
+            col-12
+            d-flex
+            justify-content-center justify-content-sm-between
+            flex-wrap
+          "
         >
           <div class="">
             <p class="card-category">
@@ -162,7 +173,7 @@ export default {
   data() {
     return {
       selectedRows: [],
-      users: [],
+      requests: [],
       sort: "created_at",
 
       pagination: {
@@ -194,7 +205,7 @@ export default {
 
   methods: {
     getList() {
-      this.users = [
+      this.requests = [
         {
           name: "Admin",
           email: "admin@jsonapi.com",
@@ -202,11 +213,8 @@ export default {
         },
       ];
     },
-    onProFeature() {
-      this.$notify({
-        type: "danger",
-        message: "This is a PRO feature.",
-      });
+    newRequest() {
+      this.$router.push("/Requests/Add");
     },
     sortChange({ prop, order }) {
       if (order === "descending") {

@@ -31,7 +31,7 @@
         <sidebar-item
           opened
           :link="{
-            name: 'Social Connectors',
+            name: 'My Accounts',
             icon: 'fa fa-plug',
           }"
         >

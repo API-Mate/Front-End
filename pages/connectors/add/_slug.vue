@@ -13,8 +13,8 @@
                 <user-card />
             </div>
         </div> -->
-    <div class="row">
-      <div class="col-xl-5 order-xl-1" v-if="connector != null">
+    <div class="row" v-if="connector != null">
+      <div class="col-xl-5 order-xl-1">
         <div>
           <img
             :src="'/img/connectors/' + connector.imagePath"
@@ -29,7 +29,7 @@
           Proxy Needed:
           <span
             :class="connector.proxyNeeded ? 'text-danger' : 'text-success'"
-            >{{ connector.proxyNeeded ? "Yes" : "No" }}</span
+            >{{ connector.proxyNeeded ? "Yes (unfortunately)" : "No" }}</span
           >
         </p>
         <p>
@@ -46,21 +46,21 @@
         </ul>
       </div>
       <div class="col-xl-7 order-xl-2">
-        <user-password-card :user="user" />
+        <connector-credential :connector="connector" />
       </div>
     </div>
   </div>
 </template>
 <script>
 import UserEditCard from "~/components/Dashboard/Cards/UserEditCard.vue";
-import UserPasswordCard from "~/components/Dashboard/Cards/UserPasswordCard.vue";
+import ConnectorCredential from "~/components/Dashboard/Cards/ConnectorCredential.vue";
 // import UserCard from '~/components/pages/UserProfile/UserCard.vue';
 export default {
   layout: "DashboardLayout",
 
   components: {
     UserEditCard,
-    UserPasswordCard,
+    ConnectorCredential,
     //UserCard
   },
 

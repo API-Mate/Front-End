@@ -42,6 +42,7 @@ export const actions = {
   },
 
   update({commit, dispatch}, params) {
+    console.log(params);
     return service.update(params, this.$axios)
       .then((user) => { commit('SET_RESOURCE', user); });
   },

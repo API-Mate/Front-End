@@ -15,6 +15,7 @@ export default function({ app, route, $axios, redirect, store }) {
     })
   
     async function logout() {
+      console.log('logout');
       await app.$auth.logout()
       app.$auth.setToken('local', false)
       store.commit('alerts/removeAll')

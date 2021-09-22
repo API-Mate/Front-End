@@ -8,7 +8,7 @@ function list(params, axios) {
   const options = {
     params: params,
     paramsSerializer: function (params) {
-      return qs.stringify(params, {encode: false});
+      return qs.stringify(params, { encode: false });
     }
   };
 
@@ -43,12 +43,14 @@ function add(user, axios) {
 }
 
 function update(user, axios) {
-  const payload = jsona.serialize({
-    stuff: user,
-    includeNames: []
-  });
+  const payload = {
+    "table": "Users",
+    "query": "updateOne",
+    "record": { email: user.email },
+    "changes": { $set: { accounts: user.accounts } }
+  };
 
-  return axios.patch(`${url}/users/${user.id}`, payload)
+  return axios.post('data-function', payload)
     .then(response => {
       return jsona.deserialize(response.data);
     });
@@ -74,9 +76,9 @@ function upload(user, image, nuxt_axios) {
       'Accept': 'application/vnd.api+json',
       'Content-Type': 'application/vnd.api+json',
     }
-    }) .then(response => {
-        return response.data.url;
-      });
+  }).then(response => {
+    return response.data.url;
+  });
 }
 
 export default {
