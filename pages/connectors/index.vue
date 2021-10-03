@@ -44,7 +44,7 @@
               mb-4
             "
           >
-            <el-select
+            <!-- <el-select
               class="select-primary pagination-select"
               v-model="pagination.perPage"
               placeholder="Per page"
@@ -56,12 +56,14 @@
                 :label="item"
                 :value="item"
               />
-            </el-select>
-            <base-button type="primary" icon size="sm" @click="addAccount">
+            </el-select> -->
+            <base-button type="primary" icon size="sm" @click="newRequest">
               <span class="btn-inner--icon"
                 ><i class="fas fa-calendar-plus"></i
               ></span>
-              <span class="btn-inner--text">New Request to Selected Accounts</span>
+              <span class="btn-inner--text"
+                >New Request to Selected Account(s)</span
+              >
             </base-button>
           </div>
           <el-table
@@ -69,6 +71,7 @@
             header-row-class-name="thead-light"
             :data="accounts"
             @sort-change="sortChange"
+            @selection-change="handleSelectionChange"
           >
             <el-table-column type="selection" width="55" />
             <el-table-column
@@ -122,13 +125,13 @@
             </el-table-column>
             <el-table-column min-width="180px" align="center">
               <div class="table-actions">
-                <base-button type="primary" icon size="sm" @click="addAccount">
+                <!-- <base-button type="primary" icon size="sm" @click="addAccount">
                   <span class="btn-inner--text">New Request</span>
 
                   <span
                     ><i class="fa fa-paper-plane"></i
                   ></span>
-                </base-button>
+                </base-button> -->
                 <el-tooltip content="Edit" placement="top">
                   <a
                     type="text"
@@ -137,7 +140,7 @@
                     data-toggle="tooltip"
                     style="cursor: pointer"
                   >
-                    <i class="fas fa-user-edit"></i>
+                    <i class="fas fa-edit"></i>
                   </a>
                 </el-tooltip>
 
@@ -227,7 +230,7 @@ export default {
         currentPage: 1,
         perPageOptions: [5, 10, 25, 50],
       },
-
+      multipleSelection: [],
       total: 1,
     };
   },
@@ -251,6 +254,10 @@ export default {
   },
 
   methods: {
+    handleSelectionChange(val) {
+      console.log(val);
+      this.multipleSelection = val;
+    },
     async getConnectors() {
       this.connectors = await this.$store.dispatch("profile/getConnectors");
     },
@@ -267,6 +274,22 @@ export default {
       //   type: "danger",
       //   message: "This is a PRO feature.",
       // });
+    },
+    newRequest() {
+      if (this.multipleSelection.length > 0) {
+        let accounts =[];
+        this.multipleSelection.forEach(element => {
+          accounts.push(this.$auth.user.accounts.findIndex(p => p == element));
+        });
+        //= this.multipleSelection.map((x) => x.account+"-"+x.connector_id);
+        console.log(JSON.stringify(accounts));
+        this.$router.push("/Requests/Add?from=" + JSON.stringify(accounts));
+      } else {
+        this.$notify({
+          type: "danger",
+          message: "Select at least one account!",
+        });
+      }
     },
     sortChange({ prop, order }) {
       if (order === "descending") {

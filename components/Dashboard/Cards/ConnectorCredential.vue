@@ -96,12 +96,18 @@ export default {
 
   methods: {
     async handleAddCC() {
-      console.log(this.connector);
+      // console.log(this.connector);
       this.data.connector_id = this.connector._id;
-      console.log(this.data);
-      this.$auth.user.accounts = [];
-      this.$auth.user.accounts.push(this.data);
-      console.log(this.$auth.user);
+      //console.log(this.data);
+      var newUser = JSON.parse(JSON.stringify(this.$auth.user));
+      // console.log("newUser");
+      // console.log(newUser);
+
+      if (!newUser.accounts || !newUser.accounts.length) {
+        newUser.accounts = [];
+      }
+      newUser.accounts.push(this.data);
+      //console.log(newUser);
       // if (["1"].includes(this.user.id)) {
       //   await this.$notify({
       //     type: "danger",
@@ -113,10 +119,10 @@ export default {
       // this.user.password = this.password;
       // this.user.password_confirmation = this.password_confirmation;
       try {
-        await this.$store.dispatch("users/update", this.$auth.user);
-        //this.$refs["addCC_form"].reset();
+        await this.$store.dispatch("users/update", newUser);
+        this.$refs["addCC_form"].reset();
         //this.unsetApiValidationErrors();
-
+        this.$auth.setUser(newUser);
         this.$notify({
           type: "success",
           message: "Account added successfully.",

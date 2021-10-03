@@ -50,10 +50,7 @@ function update(user, axios) {
     "changes": { $set: { accounts: user.accounts } }
   };
 
-  return axios.post('data-function', payload)
-    .then(response => {
-      return jsona.deserialize(response.data);
-    });
+  return axios.post('data-function', payload);
 }
 
 function destroy(id, axios) {

@@ -45,6 +45,7 @@
     "vue-chartjs": "^3.5.1",
     "vue-clipboard2": "^0.3.0",
     "vue-color": "^2.8.1",
+    "vue-emoji-picker": "^1.0.3",
     "vue-flatpickr-component": "^8.1.7",
     "vue-password-strength-meter": "^1.7.2",
     "vue-toast-notification": "^0.5.4",

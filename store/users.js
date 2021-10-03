@@ -23,35 +23,37 @@ export const mutations = {
 };
 
 export const actions = {
-  list({commit, dispatch}, params) {
+  list({ commit, dispatch }, params) {
     return service.list(params, this.$axios)
-      .then(({list, meta}) => {
+      .then(({ list, meta }) => {
         commit('SET_LIST', list);
         commit('SET_META', meta);
       });
   },
 
-  get({commit, dispatch}, params) {
+  get({ commit, dispatch }, params) {
     return service.get(params, this.$axios)
       .then((user) => { commit('SET_RESOURCE', user); });
   },
 
-  add({commit, dispatch}, params) {
+  add({ commit, dispatch }, params) {
     return service.add(params, this.$axios)
       .then((user) => { commit('SET_RESOURCE', user); });
   },
 
-  update({commit, dispatch}, params) {
+  update({ commit, dispatch }, params) {
     console.log(params);
     return service.update(params, this.$axios)
-      .then((user) => { commit('SET_RESOURCE', user); });
+      .then((res) => {
+        commit('SET_RESOURCE', params);
+      });
   },
 
-  destroy({commit, dispatch}, params) {
+  destroy({ commit, dispatch }, params) {
     return service.destroy(params), this.$axios;
   },
 
-  upload({commit, dispatch}, {user, image}) {
+  upload({ commit, dispatch }, { user, image }) {
     return service.upload(user, image, this.$axios)
       .then((url) => {
         commit('SET_URL', url);
