@@ -75,7 +75,7 @@
           >
         </li>
 
-        <hr
+        <!-- <hr
           class="my-3"
           style="
             border: 0;
@@ -95,7 +95,7 @@
             ><i class="fas fa-download mr-2"></i
           ></span>
           <span class="nav-link-inner--text">Upgrade to Premium Plan!</span></a
-        >
+        > -->
       </template>
     </side-bar>
     <div class="main-content">

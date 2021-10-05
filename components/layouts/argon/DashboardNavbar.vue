@@ -51,7 +51,7 @@
           </div>
         </div>
       </li>
-      <li class="nav-item d-sm-none">
+      <!-- <li class="nav-item d-sm-none">
         <a
           class="nav-link"
           href="#"
@@ -60,7 +60,7 @@
         >
           <i class="ni ni-zoom-split-in"></i>
         </a>
-      </li>
+      </li> -->
       
     </ul>
     <ul class="navbar-nav align-items-center ml-auto ml-md-0">

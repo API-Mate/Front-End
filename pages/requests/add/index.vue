@@ -14,11 +14,8 @@
             </div>
         </div> -->
     <div class="row">
-      <div class="col-xl-6 order-xl-1">
-        <!-- <user-edit-card :user="user" /> -->
-        Some Description
-      </div>
-      <div class="col-xl-6 order-xl-2">
+      
+      <div class="col-xl-8">
         <div class="card">
           <div class="card-header">
             <h1>Send New Request</h1>
@@ -42,6 +39,13 @@
                   </template></el-cascader
                 >
               </p>
+
+              <base-input
+                v-model="title"
+                autocomplete="on"
+                prepend-icon="fa fa-key"
+                placeholder="Title"
+              />
 
               <div>
                 <span><i class="fa fa-list"></i> Content</span>
@@ -79,7 +83,7 @@
                     slot-scope="{ emojis, insert, display }"
                   >
                     <div
-                      class="emoji-picker"
+                      class="emoji-picker mt-2"
                       :style="{ top: display.y + 'px', left: display.x + 'px' }"
                     >
                       <div class="emoji-picker__search">
@@ -106,10 +110,10 @@
                   </div>
                 </emoji-picker>
                 <div class="text-right" v-if="charCount != 0">
-                <small 
-                  >{{ charCount }} characters</small></div>
+                  <small>{{ charCount }} characters</small>
+                </div>
               </div>
-              
+
               <base-input
                 name="confirm_password"
                 autocomplete="on"
@@ -149,6 +153,14 @@
           </div>
         </div>
       </div>
+      <div class="col-xl-4">
+        <!-- <user-edit-card :user="user" /> -->
+        <h3>Request Status: </h3>
+        <p>Not send yet!</p>
+        <base-alert dismissible type="warning" icon="fas fa-network-wired">
+          <strong>Proxy!</strong> Not work yet.
+        </base-alert>
+      </div>
     </div>
   </div>
 </template>
@@ -156,6 +168,7 @@
 import UserEditCard from "~/components/Dashboard/Cards/UserEditCard.vue";
 import UserPasswordCard from "~/components/Dashboard/Cards/UserPasswordCard.vue";
 import IconCheckbox from "~/components/argon-core/Inputs/IconCheckbox.vue";
+import { BaseAlert } from "@/components/argon-core";
 import EmojiPicker from "vue-emoji-picker";
 import { Cascader, DatePicker, Switch } from "element-ui";
 // import UserCard from '~/components/pages/UserProfile/UserCard.vue';
@@ -165,6 +178,7 @@ export default {
   components: {
     EmojiPicker,
     UserEditCard,
+    BaseAlert,
     UserPasswordCard,
     IconCheckbox,
     [Cascader.name]: Cascader,
@@ -227,6 +241,7 @@ export default {
   },
   data() {
     return {
+      title: "",
       content: "",
       search: "",
       scheduleTime: "",
@@ -253,6 +268,22 @@ export default {
   methods: {
     sendRequest() {
       console.log(this.selectedAccounts);
+      this.$axios
+        .post("/main-function", {
+          action: "send",
+          data: {
+            title: this.title,
+            content: this.content,
+            schedule: schedule ? "Now" : scheduleTime,
+          },
+          connectors: this.selectedAccounts,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     append(emoji) {
       this.content += emoji;
