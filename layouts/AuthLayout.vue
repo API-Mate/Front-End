@@ -93,6 +93,18 @@
           <li class="nav-item">
             <a
               class="nav-link nav-link-icon"
+              href="https://hub.docker.com/u/apimate/"
+              target="_blank"
+              rel="noopener"
+              aria-label="docker"
+            >
+              <i class="fab fa-docker"></i>
+              <span class="nav-link-inner--text d-lg-none">Docker</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link nav-link-icon"
               href="https://github.com/API-Mate"
               target="_blank"
               rel="noopener"
@@ -103,9 +115,7 @@
             </a>
           </li>
           <li class="nav-item d-none d-lg-block ml-lg-4">
-            <nuxt-link to="/login"
-              class="btn btn-neutral btn-icon"
-            >
+            <nuxt-link to="/login" class="btn btn-neutral btn-icon">
               <!-- <span class="btn-inner--icon">
                 <i class="fas fa-signup mr-2"></i>
               </span> -->
@@ -134,6 +144,18 @@
                 >
                   <i class="fab fa-github"></i>
                   Github</a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a
+                  href="https://hub.docker.com/u/apimate/"
+                  class="nav-link"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  <i class="fab fa-docker"></i>
+                  Docker</a
                 >
               </li>
               <li class="nav-item">

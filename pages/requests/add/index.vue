@@ -14,14 +14,13 @@
             </div>
         </div> -->
     <div class="row">
-      
       <div class="col-xl-8">
         <div class="card">
           <div class="card-header">
             <h1>Send New Request</h1>
           </div>
           <div class="card-body">
-            <form ref="password_form" @submit.prevent="">
+            <form ref="addReq" @submit.prevent="">
               <p>
                 <el-cascader
                   :options="casoptions"
@@ -43,7 +42,7 @@
               <base-input
                 v-model="title"
                 autocomplete="on"
-                prepend-icon="fa fa-key"
+                prepend-icon="fa fa-tag"
                 placeholder="Title"
               />
 
@@ -52,7 +51,7 @@
               </div>
               <div class="wrapper mb-3">
                 <textarea
-                  class="form-control mt-1 regular-input"
+                  class="form-control mt-1 pr-5 regular-input"
                   v-model="content"
                   rows="2"
                   dir="auto"
@@ -155,11 +154,29 @@
       </div>
       <div class="col-xl-4">
         <!-- <user-edit-card :user="user" /> -->
-        <h3>Request Status: </h3>
-        <p>Not send yet!</p>
+        <h2>Request Status:</h2>
+        <div class="font-weight-bold">
+          <p v-if="!response.status" class="text-info">Not send yet.</p>
+          <p v-else-if="response.status == 200" class="text-success">
+            Finished Successfully! <br>
+            Request Id: {{ response.message._id }}
+          </p>
+          <p v-else class="text-danger">Error Occurred! <br>
+            Request Id: {{ response.message._id }}
+          </p>
+        </div>
         <base-alert dismissible type="warning" icon="fas fa-network-wired">
           <strong>Proxy!</strong> Not work yet.
         </base-alert>
+        <hr />
+        <div v-if="response.message">
+          <h3>Log:</h3>
+          <base-alert dismissible :type="response.status == 200?'success':'danger'">
+            {{ response.message.log }}
+          </base-alert>
+          <hr>
+          <pre>{{ response.message }}</pre>
+        </div>
       </div>
     </div>
   </div>
@@ -252,6 +269,10 @@ export default {
         email: null,
         profile_image: null,
       },
+      response: {
+        status: "",
+        message: null,
+      },
     };
   },
   computed: {
@@ -267,22 +288,40 @@ export default {
 
   methods: {
     sendRequest() {
-      console.log(this.selectedAccounts);
+      const req = {
+        action: "send",
+        data: {
+          title: this.title,
+          content: this.content,
+          schedule: this.schedule == false ? "now" : this.scheduleTime,
+        },
+        connectors: this.selectedAccounts.map(function (x) {
+          return x[1];
+        }),
+      };
+      console.log(req);
       this.$axios
-        .post("/main-function", {
-          action: "send",
-          data: {
-            title: this.title,
-            content: this.content,
-            schedule: schedule ? "Now" : scheduleTime,
-          },
-          connectors: this.selectedAccounts,
-        })
+        .post("/main-function", req)
         .then((res) => {
           console.log(res);
+
+          this.response.status = res.status;
+          this.response.message = res.data;
+          this.$notify({
+            type: "success",
+            message: 'Finished Successfully!',
+          });
+          this.$refs.addReq.reset();
         })
         .catch((err) => {
           console.log(err);
+          this.response.status = err.response.status;
+          this.response.message = err;
+          this.response = err.data;
+          this.$notify({
+            type: "fail",
+            message: 'Error Occurred!',
+          });
         });
     },
     append(emoji) {

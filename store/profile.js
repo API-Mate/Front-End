@@ -21,6 +21,16 @@ export const actions = {
       return response.data;
     });
   },
+  async getMyRequest() {
+    const data = {
+      "table": "Requests",
+      "query": "findAll",
+      "record": null
+    };
+    return await this.$axios.post("data-function", data).then(response => {
+      return response.data;
+    });
+  },
 
   me({ commit, dispatch }, params) {
     return service.get(params, this.$axios)

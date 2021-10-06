@@ -16,6 +16,17 @@
           </li>
           <li class="nav-item">
             <a
+              href="https://hub.docker.com/u/apimate/"
+              class="nav-link"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fab fa-docker"></i>
+              Docker</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
               href="https://github.com/API-Mate/API-Mate/blob/main/LICENSE"
               class="nav-link"
               target="_blank"

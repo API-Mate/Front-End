@@ -84,6 +84,7 @@ export default {
       data: {
         account: "",
         connector_id: null,
+        name: "",
         credential: {
           consumer_key: "",
           consumer_secret: "",
@@ -98,6 +99,7 @@ export default {
     async handleAddCC() {
       // console.log(this.connector);
       this.data.connector_id = this.connector._id;
+      this.data.name = this.connector.name;
       //console.log(this.data);
       var newUser = JSON.parse(JSON.stringify(this.$auth.user));
       // console.log("newUser");
