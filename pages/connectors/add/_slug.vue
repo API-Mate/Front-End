@@ -87,7 +87,9 @@ export default {
     },
     async getConnectors() {
       const s = await this.$store.dispatch("profile/getConnectors");
-      this.connector = s[0];
+      this.connector = s.find(
+        (c) => c.slug === this.$route.params.slug
+      );
     },
   },
 };

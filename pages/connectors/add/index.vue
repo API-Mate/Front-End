@@ -32,16 +32,16 @@
                   title=""
                   :to="'/connectors/add/'+cn.slug"
                 >
-                  <div>
+                  <div class="mb-3">
                     <img
                       :src="'/img/connectors/' + cn.imagePath"
-                      style="max-height: 100px; max-width: 100px"
+                      style="max-height: 85px; max-width: 85px"
                       alt=""
                     />
                     <!-- <i class="fab fa-twitter"></i> -->
                     <span>{{ cn.name }} Connector</span>
                   </div>
-                  <a>{{cn.description}}</a>
+                  <small>{{cn.description}}</small>
                 </NuxtLink>
               </div>
             </div>
