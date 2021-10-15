@@ -113,12 +113,12 @@
                 </div>
               </div>
 
-              <base-input
+              <!-- <base-input
                 name="confirm_password"
                 autocomplete="on"
                 prepend-icon="fa fa-key"
                 placeholder="Http Proxy"
-              />
+              /> -->
               <div class="mb-3">
                 <el-switch
                   v-model="schedule"
@@ -165,9 +165,9 @@
             Request Id: {{ response.message._id }}
           </p>
         </div>
-        <base-alert dismissible type="warning" icon="fas fa-network-wired">
+        <!-- <base-alert dismissible type="warning" icon="fas fa-network-wired">
           <strong>Proxy!</strong> Not work yet.
-        </base-alert>
+        </base-alert> -->
         <hr />
         <div v-if="response.message">
           <h3>Log:</h3>

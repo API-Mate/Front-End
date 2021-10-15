@@ -57,7 +57,7 @@
           <li class="nav-item">
             <a
               class="nav-link nav-link-icon"
-              href="https://www.facebook.com/API-Mate"
+              href="https://www.facebook.com/API.Mate1"
               target="_blank"
               rel="noopener"
               aria-label="Facebook"
@@ -69,13 +69,13 @@
           <li class="nav-item">
             <a
               class="nav-link nav-link-icon"
-              href="https://www.instagram.com/API-Mate"
+              href="https://discord.com/channels/897845477985382451/897845477985382454"
               target="_blank"
               rel="noopener"
-              aria-label="Instagram"
+              aria-label="Discord"
             >
-              <i class="fab fa-instagram"></i>
-              <span class="nav-link-inner--text d-lg-none">Instagram</span>
+              <i class="fab fa-discord"></i>
+              <span class="nav-link-inner--text d-lg-none">Discord</span>
             </a>
           </li>
           <li class="nav-item">
